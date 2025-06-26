@@ -1,0 +1,19 @@
+@media print {
+    #registration-form {
+        font-size: 12px;
+        margin: 10px;
+        border: none;
+    }
+}
+
+#registration-form {
+    width: 210mm; 
+    max-width: 100%; 
+    padding: 20px;
+    margin: 0 auto; 
+    background: white; 
+    font-size: 14px; 
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

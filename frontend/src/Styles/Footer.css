@@ -1,0 +1,67 @@
+footer {
+  background-color: white;
+  /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 1);  */
+}
+
+footer a {
+  transition: color 0.2s ease-in-out;
+}
+
+footer h5 {
+  color: #333; /* Darken the headings */
+}
+
+footer p {
+  color: #555; /* Muted text for the paragraphs */
+}
+
+footer .nav-link {
+  color: #000 !important; /* Ensures black color for all nav links */
+}
+
+footer .bi {
+  color: #000; /* Change icons to black */
+}
+
+
+
+.footer-text {
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.rights-reserved {
+  font-size: 16px;
+  color: #555;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.credits {
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.credits strong {
+  color: #007bff; /* Highlighted name */
+}
+
+.thanks {
+  font-size: 16px;
+  color: #777;
+  margin-top: 10px;
+}
+
+.thanks strong {
+  color: #007bff; /* Highlighted name */
+}
+
+/* Add hover effect to names */
+.credits strong:hover, .thanks strong:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+

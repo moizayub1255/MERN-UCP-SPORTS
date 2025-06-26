@@ -1,0 +1,16 @@
+@media (min-width: 770px) and (max-width: 990px) {
+    .row{
+        display: flex;
+        flex-direction: column;
+    }
+
+    video{
+        margin: 12px;
+    }
+}
+
+@media (min-width: 990px) and (max-width: 1200px){
+    video{
+        margin: 12px;
+    }
+}

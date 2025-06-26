@@ -1,0 +1,39 @@
+/* Banner Section */
+.banner {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+  }
+  
+  .banner img {
+    object-fit: cover;
+    height: 100%;
+  }
+  
+  .banner-text {
+    font-size: 6rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    
+  }
+  
+  .form-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .form-control {
+    border-radius: 5px;
+  }
+  
+  button {
+    border-radius: 5px;
+  }
+  
+  h1 {
+    color: #333;
+    font-weight: bold;
+  }
+  

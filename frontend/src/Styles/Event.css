@@ -1,0 +1,11 @@
+.banner-text {
+    font-size: 6rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    
+  }
+
+  .custom-text-justify {
+    text-align: justify;
+  }
+  

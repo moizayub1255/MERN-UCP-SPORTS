@@ -1,0 +1,70 @@
+/* Set navbar height explicitly */
+.navbar {
+  background-color: white;
+  position: fixed; /* Navbar ko fixed karne ke liye */
+  top: 0;
+  left: 0;
+  width: 100%; /* Puri width cover kare */
+  z-index: 10; /* Ensure karein ki navbar sabse upar ho */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  height: 100px; /* Navbar ki height */
+}
+
+body {
+  padding-top: 100px; /* Navbar ki height ke mutabiq padding */
+}
+
+.navbar-brand,
+.nav-link {
+  color: black !important;
+  font-weight: bold !important; /* Text ko bold karne ke liye */
+}
+
+.navbar-brand {
+  font-family: "Georgia", serif;
+}
+
+.navbar-toggler-icon {
+  background-color: #000 !important; /* Set a default color for hamburger icon */
+}
+
+/* Ensure the background of the collapsed menu is white */
+.navbar-collapse {
+  background-color: white !important; /* Background color of the expanded menu */
+}
+
+.navbar-nav .nav-item {
+  background-color: white; /* Background color for each item */
+}
+
+.navbar-nav .nav-link {
+  color: black !important; /* Ensures nav links have black text */
+  padding: 10px 15px; /* Optional: for better spacing */
+}
+
+@media (max-width: 991.98px) {
+  .navbar-toggler-icon {
+    background-color: #ffffff !important; /* Ensure background color on mobile view */
+  }
+
+  /* Optional: Ensure no margin/padding issues in the collapsed menu */
+  .navbar-collapse {
+    padding-top: 10px; /* Add padding for better spacing in mobile view */
+  }
+}
+
+/* This will prevent horizontal scrolling on the body */
+body {
+  overflow-x: hidden;
+}
+
+/* Optional: This ensures no unwanted margin or padding from body or html */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Prevent overflow in the video-container */
+.video-container {
+  overflow: hidden;
+}
