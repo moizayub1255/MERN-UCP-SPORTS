@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     const fetchPointsData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/points`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/points`);
         const data = await response.json();
         setPointsData(data); // Set the fetched data in context
       } catch (error) {

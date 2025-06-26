@@ -41,7 +41,7 @@ const Register = () => {
 
       // Sending POST request to backend
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/v1/auth/register`,
+        `${import.meta.env.VITE_API_URL}/api/v1/auth/register`,
         formData
       );
 

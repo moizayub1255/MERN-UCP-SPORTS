@@ -10,10 +10,10 @@ const Leaderboard = () => {
     const fetchLeaderboards = async () => {
       try {
         const boysResponse = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/points-table?category=boys`
+          `${import.meta.env.VITE_API_URL}/api/points-table?category=boys`
         );
         const girlsResponse = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/points-table?category=girls`
+          `${import.meta.env.VITE_API_URL}/api/points-table?category=girls`
         );
 
         console.log("Boys Leaderboard Data:", boysResponse.data); // Debugging

@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault(); // Prevent form default submission
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/v1/auth/login`, // Corrected endpoint
+        `${import.meta.env.VITE_API_URL}/api/v1/auth/login`, // Corrected endpoint
         { email, password }
       );
 

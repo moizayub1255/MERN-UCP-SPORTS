@@ -18,7 +18,7 @@ const Girls = () => {
     const fetchGames = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/games/games`,
+          `${import.meta.env.VITE_API_URL}/api/games/games`,
           {
             params: { category: "girls" },
           }
@@ -50,7 +50,7 @@ const handleAddGame = async () => {
     const token = localStorage.getItem("token"); // Token le lo
 
     const response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/games/add-game`,
+      `${import.meta.env.VITE_API_URL}/api/games/add-game`,
       {
         name: formattedGameName, // Updated name
         category: "girls",
@@ -77,7 +77,7 @@ const handleAddGame = async () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `${process.env.REACT_APP_API_URL}/api/points-table/update-points`,
+        `${import.meta.env.VITE_API_URL}/api/points-table/update-points`,
         {
           gameId,
           category: "girls", // Girls.jsx me "girls" hoga

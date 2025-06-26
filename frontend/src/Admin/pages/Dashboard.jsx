@@ -9,7 +9,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchPointsData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/points`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/points`);
         const data = await response.json();
         setPointsData(data);
       } catch (error) {
@@ -29,7 +29,7 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem("token");
-      await fetch(`${process.env.REACT_APP_API_URL}/api/points/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/points/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
