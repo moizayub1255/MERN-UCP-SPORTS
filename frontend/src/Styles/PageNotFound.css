@@ -1,0 +1,55 @@
+.pna-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb;
+  padding: 20px;
+}
+
+.pna-card {
+  background: #ffffff;
+  padding: 60px 50px;
+  border-radius: 12px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.pna-code {
+  font-size: 96px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.pna-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 12px;
+}
+
+.pna-text {
+  font-size: 15px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.pna-button {
+  display: inline-block;
+  padding: 12px 26px;
+  background-color: #2563eb;
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.pna-button:hover {
+  background-color: #1d4ed8;
+}
