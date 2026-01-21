@@ -11,11 +11,63 @@ const Home = () => {
   useEffect(() => {
     const fetchPointsData = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/points`);
-        const data = await response.json();
-        setPointsData(data); // Set the fetched data in context
+        // Fetch overall leaderboard from the new PointsTable model
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/points-table?category=overall`,
+        );
+        const overallData = await response.json();
+
+        console.log(
+          "Overall leaderboard data from /api/points-table:",
+          overallData,
+        );
+
+        // If we have overall data, transform it
+        if (Array.isArray(overallData) && overallData.length > 0) {
+          // Get all teams and their total points across all games
+          const teamTotals = {};
+          const teamImages = {
+            Jaguars: "./jaguars.png",
+            Warriors: "./warriors.png",
+            Hawks: "./hawks.png",
+            Gladiators: "./gladiators.png",
+            Falcons: "./falcons.png",
+          };
+
+          // Sum up points for each team across all games
+          overallData.forEach((game) => {
+            if (game.points) {
+              Object.entries(game.points).forEach(([teamName, points]) => {
+                if (!teamTotals[teamName]) {
+                  teamTotals[teamName] = {
+                    teamName,
+                    points: 0,
+                    img: teamImages[teamName] || "./default.png",
+                    _id: teamName,
+                  };
+                }
+                teamTotals[teamName].points += parseInt(points) || 0;
+              });
+            }
+          });
+
+          // Convert to array and set in context
+          const formattedData = Object.values(teamTotals);
+          console.log("Formatted team totals:", formattedData);
+          setPointsData(formattedData);
+        } else {
+          console.log("No overall data found, fetching from old Points model");
+          // Fallback to old Points model if no overall data exists
+          const legacyResponse = await fetch(
+            `${import.meta.env.VITE_API_URL}/api/points`,
+          );
+          const legacyData = await legacyResponse.json();
+          console.log("Legacy points data:", legacyData);
+          setPointsData(Array.isArray(legacyData) ? legacyData : []);
+        }
       } catch (error) {
         console.error("Error fetching points data:", error);
+        setPointsData([]);
       }
     };
 
@@ -59,40 +111,59 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {(pointsData || [])
-              .sort((a, b) => b.points - a.points) // Sort teams by points in descending order
-              .map((team, index) => (
-                <tr key={team._id} className="text-center">
-                  <td>{index + 1}</td>
-                  <td>
-                    <div className="d-flex align-items-center justify-content-center">
-                      <img
-                        src={team.img}
-                        alt={team.teamName}
-                        style={{
-                          width: "40px",
-                          height: "40px",
-                          marginRight: "10px",
-                          borderRadius: "50%",
-                        }}
-                      />
-                      {team.teamName}
-                    </div>
-                  </td>
-                  <td>{team.points}</td>
-                </tr>
-              ))}
+            {(pointsData || []).length > 0 ? (
+              (pointsData || [])
+                .sort((a, b) => (b.points || 0) - (a.points || 0)) // Sort teams by points in descending order
+                .map((team, index) => (
+                  <tr key={team._id || team.teamName} className="text-center">
+                    <td>{index + 1}</td>
+                    <td>
+                      <div className="d-flex align-items-center justify-content-center">
+                        <img
+                          src={team.img}
+                          alt={team.teamName}
+                          style={{
+                            width: "40px",
+                            height: "40px",
+                            marginRight: "10px",
+                            borderRadius: "50%",
+                          }}
+                        />
+                        {team.teamName}
+                      </div>
+                    </td>
+                    <td>{team.points || 0}</td>
+                  </tr>
+                ))
+            ) : (
+              <tr>
+                <td colSpan="3" className="text-center">
+                  No games added yet. Check back soon!
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
 
       <h1 className="d-flex justify-content-center">Our Teams</h1>
       <div className="row row-cols-1 row-cols-md-3 g-4 p-4 d-flex justify-content-center">
-        {pointsData.map((team) => (
-          <img key={team._id} src={team.img} alt={team.teamName} />
-        ))}
+        {(pointsData || []).length > 0 ? (
+          (pointsData || []).map((team) => (
+            <img
+              key={team._id || team.teamName}
+              src={team.img}
+              alt={team.teamName}
+            />
+          ))
+        ) : (
+          <p className="text-center w-100">
+            Teams will be displayed once games are created.
+          </p>
+        )}
       </div>
-      <AboutMe></AboutMe>
+
+      {/* <AboutMe></AboutMe> */}
     </Headandfoot>
   );
 };

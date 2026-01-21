@@ -21,7 +21,7 @@ const Boys = () => {
           `${import.meta.env.VITE_API_URL}/api/games/games`,
           {
             params: { category: "boys" },
-          }
+          },
         );
         console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
@@ -59,7 +59,7 @@ const Boys = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`, // Token bhejo
           },
-        }
+        },
       );
 
       setGames([...games, response.data.game]);
@@ -73,112 +73,124 @@ const Boys = () => {
   const handleUpdatePoints = async (gameId) => {
     try {
       const token = localStorage.getItem("token");
+
+      // Convert all points to integers
+      const intPoints = {
+        Jaguars: parseInt(points.Jaguars) || 0,
+        Warriors: parseInt(points.Warriors) || 0,
+        Hawks: parseInt(points.Hawks) || 0,
+        Gladiators: parseInt(points.Gladiators) || 0,
+        Falcons: parseInt(points.Falcons) || 0,
+      };
+
       await axios.put(
         `${import.meta.env.VITE_API_URL}/api/points-table/update-points`,
         {
           gameId,
-          category: "boys", // Girls.jsx me "girls" hoga
-          points,
+          category: "boys",
+          points: intPoints,
         },
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       alert("Points updated successfully!");
-      window.location.reload(); // Refresh page to update Leaderboard
+      // Refresh the page after 500ms to allow the backend to process
+      setTimeout(() => window.location.reload(), 500);
     } catch (error) {
       console.error("Error updating points:", error);
+      alert("Error updating points. Check console for details.");
     }
   };
 
   return (
     <AdminHeadFoot>
-    <div style={{ padding: "20px", textAlign: "center" }}>
-      <h1>Boys Games Management</h1>
-      <p>Add new games and update points for boys here.</p>
-      {/* Add New Game Section */}
-      <div>
-        <h2>Add New Game</h2>
-        <input
-          type="text"
-          value={newGame}
-          onChange={(e) => setNewGame(e.target.value)}
-          placeholder="Enter game name"
-        />
-        <button onClick={handleAddGame}>Add Game</button>
-      </div>
+      <div style={{ padding: "20px", textAlign: "center" }}>
+        <h1>Boys Games Management</h1>
+        <p>Add new games and update points for boys here.</p>
+        {/* Add New Game Section */}
+        <div>
+          <h2>Add New Game</h2>
+          <input
+            type="text"
+            value={newGame}
+            onChange={(e) => setNewGame(e.target.value)}
+            placeholder="Enter game name"
+          />
+          <button onClick={handleAddGame}>Add Game</button>
+        </div>
 
-      {/* Update Points Section */}
-      <div>
-        <h2>Update Points</h2>
-        {games.length > 0 ? (
-          games.map((game) => (
-            <div key={game._id} style={{ marginBottom: "20px" }}>
-              <h3>{game.name}</h3>
-              <div>
-                <label>Jaguars: </label>
-                <input
-                  type="number"
-                  value={points.Jaguars}
-                  onChange={(e) =>
-                    setPoints({ ...points, Jaguars: e.target.value })
-                  }
-                />
+        {/* Update Points Section */}
+        <div>
+          <h2>Update Points</h2>
+          {games.length > 0 ? (
+            games.map((game) => (
+              <div key={game._id} style={{ marginBottom: "20px" }}>
+                <h3>{game.name}</h3>
+                <div>
+                  <label>Jaguars: </label>
+                  <input
+                    type="number"
+                    value={points.Jaguars}
+                    onChange={(e) =>
+                      setPoints({ ...points, Jaguars: e.target.value })
+                    }
+                  />
+                </div>
+                <div>
+                  <label>Warriors: </label>
+                  <input
+                    type="number"
+                    value={points.Warriors}
+                    onChange={(e) =>
+                      setPoints({ ...points, Warriors: e.target.value })
+                    }
+                  />
+                </div>
+                <div>
+                  <label>Hawks: </label>
+                  <input
+                    type="number"
+                    value={points.Hawks}
+                    onChange={(e) =>
+                      setPoints({ ...points, Hawks: e.target.value })
+                    }
+                  />
+                </div>
+                <div>
+                  <label>Gladiators: </label>
+                  <input
+                    type="number"
+                    value={points.Gladiators}
+                    onChange={(e) =>
+                      setPoints({ ...points, Gladiators: e.target.value })
+                    }
+                  />
+                </div>
+                <div>
+                  <label>Falcons: </label>
+                  <input
+                    type="number"
+                    value={points.Falcons}
+                    onChange={(e) =>
+                      setPoints({ ...points, Falcons: e.target.value })
+                    }
+                  />
+                </div>
+                <button onClick={() => handleUpdatePoints(game._id)}>
+                  Save Points
+                </button>
               </div>
-              <div>
-                <label>Warriors: </label>
-                <input
-                  type="number"
-                  value={points.Warriors}
-                  onChange={(e) =>
-                    setPoints({ ...points, Warriors: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <label>Hawks: </label>
-                <input
-                  type="number"
-                  value={points.Hawks}
-                  onChange={(e) =>
-                    setPoints({ ...points, Hawks: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <label>Gladiators: </label>
-                <input
-                  type="number"
-                  value={points.Gladiators}
-                  onChange={(e) =>
-                    setPoints({ ...points, Gladiators: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <label>Falcons: </label>
-                <input
-                  type="number"
-                  value={points.Falcons}
-                  onChange={(e) =>
-                    setPoints({ ...points, Falcons: e.target.value })
-                  }
-                />
-              </div>
-              <button onClick={() => handleUpdatePoints(game._id)}>
-                Save Points
-              </button>
-            </div>
-          ))
-        ) : (
-          <p>No games found. Add a new game to get started.</p>
-        )}
+            ))
+          ) : (
+            <p>No games found. Add a new game to get started.</p>
+          )}
+        </div>
       </div>
-    </div>
     </AdminHeadFoot>
   );
 };

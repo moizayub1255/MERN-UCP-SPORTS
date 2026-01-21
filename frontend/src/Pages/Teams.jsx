@@ -3,30 +3,28 @@ import Headandfoot from "../Layout/Headandfoot";
 
 const teams = [
   {
-    name: "Jaguars",
-    logo: "/jaguars.png",
-    description:
-      "The Jaguars are fierce and unstoppable. They thrive under pressure and deliver extraordinary performances. Their passion and resilience are a sight to behold.",
-    classes: ["BSCS-8"],
-    in: ["Prof. M.Ali", "Miss Amna Awan"],
-    video: "realjaguars.mp4",
-  },
-  {
     name: "Warriors",
     logo: "/warriors.png",
     description:
       "The Warriors are fearless and determined. Their powerful gameplay and strategic approach make them one of the toughest teams to beat. They inspire through their relentless pursuit of excellence.",
-    classes: ["BSCS-6", "BSCS-7", "BSCS-F1"],
-    in: ["Prof. Rana Hammad Habib", "Miss Hira Shahid"],
+    classes: ["BSCS-6", "BSCS-7", "Post-ADCS"],
+    in: ["Prof. Abubakar", "Prof. Hira Shahid"],
     video: "realwarriors.mp4",
   },
   {
-    name: "Falcons",
+    name: "Tigers",
     logo: "/falcons.png",
     description:
-      "The Falcons are known for their speed and agility. They dominate the field with unmatched teamwork and energy. Whether it’s a nail-biting finish or a clear victory, this team brings their A-game every time.",
-    classes: ["BS English", "BS Chemistry", "BS Math"],
-    in: ["Miss Aneeqa"],
+      "The Tigers are known for their speed and agility. They dominate the field with unmatched teamwork and energy. Whether it’s a nail-biting finish or a clear victory, this team brings their A-game every time.",
+    classes: [
+      "BS-AF",
+      "BS-BA",
+      "BS-English",
+      "BS-Chemistry",
+      "BS-Physics",
+      "All-ADP",
+    ],
+    in: ["Prof.Touheed Alam", "Prof. Tariq", "Prof. Kamran"],
     video: "Falcons.mp4",
   },
   {
@@ -34,8 +32,8 @@ const teams = [
     logo: "/gladiators.png",
     description:
       "The Gladiators are fierce and unstoppable. They thrive under pressure and deliver extraordinary performances. Their passion and resilience are a sight to behold.",
-    classes: ["BBA-7", "BBA-8", "BBA-9", "BBA F-2"],
-    in: ["Prof. Kamran Khan", "Prof. Aziz"],
+    classes: ["BBA-7", "BBA-8", "BBA-9", "BBA-10", "Post-ADBA"],
+    in: ["Prof. Abdul Aziz", "Prof. Imran Farid", "Prof. Hafsa Ayesha"],
     video: "Gladiators.MP4",
   },
   {
@@ -43,15 +41,18 @@ const teams = [
     logo: "/hawks.png",
     description:
       "The Hawks play with precision and strength. They are a balanced team with exceptional skills in all areas of the game. Their focus and determination set them apart.",
-    classes: [
-      "BSAF-2 & BSAF-3",
-      "ADBA-9 & ADBA-10",
-      "ADAF-9 & ADAF-10",
-      "ADCS-4 & ADCS-5",
-      "BS Psychology",
-    ],
-    in: ["Prof. Saqib Arshad", "Prof. Badar Chishti", "Miss Warda"],
+    classes: ["BSCS-9"],
+    in: ["Prof. Fawad Hamayun", "Prof. Naseem Ahmed"],
     // video: "falconstheme.mp4",
+  },
+  {
+    name: "Jaguars",
+    logo: "/jaguars.png",
+    description:
+      "The Jaguars are fierce and unstoppable. They thrive under pressure and deliver extraordinary performances. Their passion and resilience are a sight to behold.",
+    classes: ["BSCS-8"],
+    in: ["Prof. M.Ali", "Prof. Hammad Habib"],
+    video: "realjaguars.mp4",
   },
 ];
 
@@ -90,7 +91,9 @@ const Teams = () => {
                     </div>
                     <div className="col-md-6 p-4">
                       <h3 className="card-title text-center">{team.name}</h3>
-                      <p className="card-text">{team.description}</p>
+                      <p className="card-text text-justify">
+                        {team.description}
+                      </p>
                       <h5>Classes & Sections</h5>
                       <ul>
                         {team.classes.map((teamClass, idx) => (

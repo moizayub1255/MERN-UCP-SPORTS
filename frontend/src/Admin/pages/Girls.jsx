@@ -21,7 +21,7 @@ const Girls = () => {
           `${import.meta.env.VITE_API_URL}/api/games/games`,
           {
             params: { category: "girls" },
-          }
+          },
         );
         console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
@@ -40,64 +40,74 @@ const Girls = () => {
 
   // Add a new game
   // Add a new game
-const handleAddGame = async () => {
-  if (!newGame) return alert("Please enter a game name");
+  const handleAddGame = async () => {
+    if (!newGame) return alert("Please enter a game name");
 
-  // 🆕 First letter capitalize
-  const formattedGameName = newGame.charAt(0).toUpperCase() + newGame.slice(1).toLowerCase();
+    // 🆕 First letter capitalize
+    const formattedGameName =
+      newGame.charAt(0).toUpperCase() + newGame.slice(1).toLowerCase();
 
-  try {
-    const token = localStorage.getItem("token"); // Token le lo
+    try {
+      const token = localStorage.getItem("token"); // Token le lo
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/games/add-game`,
-      {
-        name: formattedGameName, // Updated name
-        category: "girls",
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Token bhejo
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/games/add-game`,
+        {
+          name: formattedGameName, // Updated name
+          category: "girls",
         },
-      }
-    );
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Token bhejo
+          },
+        },
+      );
 
-    setGames([...games, response.data.game]);
-    setNewGame("");
-  } catch (error) {
-    console.error("Error adding game:", error);
-  }
-};
-
-  
+      setGames([...games, response.data.game]);
+      setNewGame("");
+    } catch (error) {
+      console.error("Error adding game:", error);
+    }
+  };
 
   // Update points for a game
   const handleUpdatePoints = async (gameId) => {
     try {
       const token = localStorage.getItem("token");
+
+      // Convert all points to integers
+      const intPoints = {
+        Jaguars: parseInt(points.Jaguars) || 0,
+        Warriors: parseInt(points.Warriors) || 0,
+        Hawks: parseInt(points.Hawks) || 0,
+        Gladiators: parseInt(points.Gladiators) || 0,
+        Falcons: parseInt(points.Falcons) || 0,
+      };
+
       await axios.put(
         `${import.meta.env.VITE_API_URL}/api/points-table/update-points`,
         {
           gameId,
-          category: "girls", // Girls.jsx me "girls" hoga
-          points,
+          category: "girls",
+          points: intPoints,
         },
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
-  
+
       alert("Points updated successfully!");
-      window.location.reload(); // Refresh page to update Leaderboard
+      // Refresh the page after 500ms to allow the backend to process
+      setTimeout(() => window.location.reload(), 500);
     } catch (error) {
       console.error("Error updating points:", error);
+      alert("Error updating points. Check console for details.");
     }
   };
-  
 
   return (
     <AdminHeadFoot>
@@ -184,7 +194,7 @@ const handleAddGame = async () => {
           )}
         </div>
       </div>
-      </AdminHeadFoot>
+    </AdminHeadFoot>
   );
 };
 
