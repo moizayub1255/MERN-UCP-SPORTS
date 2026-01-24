@@ -19,7 +19,7 @@ export const addGame = async (req, res) => {
     const newPointsTable = new PointsTable({
       game: game._id,
       category,
-      points: { Jaguars: 0, Warriors: 0, Hawks: 0, Gladiators: 0 },
+      points: { Jaguars: 0, Warriors: 0, Hawks: 0, Gladiators: 0, Falcons: 0 },
     });
     await newPointsTable.save();
 

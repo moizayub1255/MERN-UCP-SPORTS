@@ -10,10 +10,10 @@ const Leaderboard = () => {
     const fetchLeaderboards = async () => {
       try {
         const boysResponse = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/points-table?category=boys`,
+          `${import.meta.env.VITE_API_URL}/api/points-table?category=boys`
         );
         const girlsResponse = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/points-table?category=girls`,
+          `${import.meta.env.VITE_API_URL}/api/points-table?category=girls`
         );
 
         console.log("Boys Leaderboard Data:", boysResponse.data); // Debugging
@@ -68,8 +68,8 @@ const Leaderboard = () => {
         <h1>See who's on TOP</h1>
         <p>
           In GameOn, we have separate sports competitions for boys and girls. On
-          this page, you can see separate leaderboards for boys and girls
-          standings.
+          this page, you can see separate leaderboards for boys and girls with
+          fixed positions.
         </p>
 
         {/* Girls Leaderboard */}
@@ -152,7 +152,11 @@ const Leaderboard = () => {
                     />
                   </th>
                   <th style={thStyle}>
-                    <img src="./falcons.png" alt="Falcons" style={imgStyle} />
+                    <img
+                      src="./falcons.png"
+                      alt="Falcons"
+                      style={imgStyle}
+                    />
                   </th>
                 </tr>
               </thead>

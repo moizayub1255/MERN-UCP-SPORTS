@@ -5,13 +5,7 @@ import AdminHeadFoot from "./AdminHeadFoot";
 const Girls = () => {
   const [games, setGames] = useState([]); // Initialize as empty array
   const [newGame, setNewGame] = useState("");
-  const [points, setPoints] = useState({
-    Jaguars: 0,
-    Warriors: 0,
-    Hawks: 0,
-    Gladiators: 0,
-    Falcons: 0,
-  });
+  const [gamePoints, setGamePoints] = useState({}); // Points per game
 
   // Fetch existing games for girls
   useEffect(() => {
@@ -21,7 +15,7 @@ const Girls = () => {
           `${import.meta.env.VITE_API_URL}/api/games/games`,
           {
             params: { category: "girls" },
-          },
+          }
         );
         console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
@@ -30,84 +24,86 @@ const Girls = () => {
           console.error("Expected an array but got:", response.data);
           setGames([]);
         }
+
+        // Fetch points table
+        const pointsResponse = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/points-table`,
+          {
+            params: { category: "girls" },
+          }
+        );
+        const pts = {};
+        pointsResponse.data.forEach((item) => {
+          pts[item.game._id] = item.points || {};
+        });
+        setGamePoints(pts);
       } catch (error) {
-        console.error("Error fetching games:", error);
+        console.error("Error fetching games or points:", error);
         setGames([]);
+        setGamePoints({});
       }
     };
     fetchGames();
   }, []);
 
   // Add a new game
-  // Add a new game
-  const handleAddGame = async () => {
-    if (!newGame) return alert("Please enter a game name");
+const handleAddGame = async () => {
+  if (!newGame) return alert("Please enter a game name");
 
-    // 🆕 First letter capitalize
-    const formattedGameName =
-      newGame.charAt(0).toUpperCase() + newGame.slice(1).toLowerCase();
+  // 🆕 First letter capitalize
+  const formattedGameName = newGame.charAt(0).toUpperCase() + newGame.slice(1).toLowerCase();
 
-    try {
-      const token = localStorage.getItem("token"); // Token le lo
+  try {
+    const token = localStorage.getItem("token"); // Token le lo
 
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/games/add-game`,
-        {
-          name: formattedGameName, // Updated name
-          category: "girls",
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/games/add-game`,
+      {
+        name: formattedGameName, // Updated name
+        category: "girls",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Token bhejo
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Token bhejo
-          },
-        },
-      );
+      }
+    );
 
-      setGames([...games, response.data.game]);
-      setNewGame("");
-    } catch (error) {
-      console.error("Error adding game:", error);
-    }
-  };
+    setGames([...games, response.data.game]);
+    setNewGame("");
+  } catch (error) {
+    console.error("Error adding game:", error);
+  }
+};
+
+  
 
   // Update points for a game
   const handleUpdatePoints = async (gameId) => {
     try {
       const token = localStorage.getItem("token");
-
-      // Convert all points to integers
-      const intPoints = {
-        Jaguars: parseInt(points.Jaguars) || 0,
-        Warriors: parseInt(points.Warriors) || 0,
-        Hawks: parseInt(points.Hawks) || 0,
-        Gladiators: parseInt(points.Gladiators) || 0,
-        Falcons: parseInt(points.Falcons) || 0,
-      };
-
       await axios.put(
         `${import.meta.env.VITE_API_URL}/api/points-table/update-points`,
         {
           gameId,
-          category: "girls",
-          points: intPoints,
+          category: "girls", // Girls.jsx me "girls" hoga
+          points: gamePoints[gameId] || {},
         },
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
-
       alert("Points updated successfully!");
-      // Refresh the page after 500ms to allow the backend to process
-      setTimeout(() => window.location.reload(), 500);
+      window.location.reload(); // Refresh page to update Leaderboard
     } catch (error) {
       console.error("Error updating points:", error);
-      alert("Error updating points. Check console for details.");
     }
   };
+  
 
   return (
     <AdminHeadFoot>
@@ -138,9 +134,15 @@ const Girls = () => {
                   <label>Jaguars: </label>
                   <input
                     type="number"
-                    value={points.Jaguars}
+                    value={gamePoints[game._id]?.Jaguars || 0}
                     onChange={(e) =>
-                      setPoints({ ...points, Jaguars: e.target.value })
+                      setGamePoints({
+                        ...gamePoints,
+                        [game._id]: {
+                          ...gamePoints[game._id],
+                          Jaguars: parseInt(e.target.value) || 0,
+                        },
+                      })
                     }
                   />
                 </div>
@@ -148,9 +150,15 @@ const Girls = () => {
                   <label>Warriors: </label>
                   <input
                     type="number"
-                    value={points.Warriors}
+                    value={gamePoints[game._id]?.Warriors || 0}
                     onChange={(e) =>
-                      setPoints({ ...points, Warriors: e.target.value })
+                      setGamePoints({
+                        ...gamePoints,
+                        [game._id]: {
+                          ...gamePoints[game._id],
+                          Warriors: parseInt(e.target.value) || 0,
+                        },
+                      })
                     }
                   />
                 </div>
@@ -158,9 +166,15 @@ const Girls = () => {
                   <label>Hawks: </label>
                   <input
                     type="number"
-                    value={points.Hawks}
+                    value={gamePoints[game._id]?.Hawks || 0}
                     onChange={(e) =>
-                      setPoints({ ...points, Hawks: e.target.value })
+                      setGamePoints({
+                        ...gamePoints,
+                        [game._id]: {
+                          ...gamePoints[game._id],
+                          Hawks: parseInt(e.target.value) || 0,
+                        },
+                      })
                     }
                   />
                 </div>
@@ -168,9 +182,15 @@ const Girls = () => {
                   <label>Gladiators: </label>
                   <input
                     type="number"
-                    value={points.Gladiators}
+                    value={gamePoints[game._id]?.Gladiators || 0}
                     onChange={(e) =>
-                      setPoints({ ...points, Gladiators: e.target.value })
+                      setGamePoints({
+                        ...gamePoints,
+                        [game._id]: {
+                          ...gamePoints[game._id],
+                          Gladiators: parseInt(e.target.value) || 0,
+                        },
+                      })
                     }
                   />
                 </div>
@@ -178,9 +198,15 @@ const Girls = () => {
                   <label>Falcons: </label>
                   <input
                     type="number"
-                    value={points.Falcons}
+                    value={gamePoints[game._id]?.Falcons || 0}
                     onChange={(e) =>
-                      setPoints({ ...points, Falcons: e.target.value })
+                      setGamePoints({
+                        ...gamePoints,
+                        [game._id]: {
+                          ...gamePoints[game._id],
+                          Falcons: parseInt(e.target.value) || 0,
+                        },
+                      })
                     }
                   />
                 </div>
@@ -194,7 +220,7 @@ const Girls = () => {
           )}
         </div>
       </div>
-    </AdminHeadFoot>
+      </AdminHeadFoot>
   );
 };
 

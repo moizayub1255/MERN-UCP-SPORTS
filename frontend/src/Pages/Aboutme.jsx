@@ -14,7 +14,7 @@ const AboutMe = () => {
         />
         <p className="name">Moiz</p>
         <p >BSCS-7B</p>
-      </div>
+      </div> 
       
       <div className="picture-card">
         <img 
