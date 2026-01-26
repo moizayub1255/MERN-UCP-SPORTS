@@ -14,7 +14,7 @@ const Footer = () => {
 
             <div className="col-md-4">
               <img
-                src="./logo.jpg"
+                src="./logo-2026.jpeg"
                 alt="University Logo"
                 className="mb-3"
                 style={{ width: 200 }}

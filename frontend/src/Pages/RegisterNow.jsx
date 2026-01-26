@@ -95,7 +95,7 @@ const RegisterNow = () => {
             <div className="text-center">
                     <Row>
                         <Col><Image src="pgclogo.png" height="160" width={200} /></Col>
-                        <Col><Image src="logo.jpg" height="120" /></Col>
+                        <Col><Image src="logo-2026.jpeg" height="120" /></Col>
                         <Col><Image src="ucplogo.png" height="120" /></Col>
                     </Row>
                     <h2 className="text-center mt-4">UCP GAME-ON 2025 SPORTS REGISTRATION FORM</h2>
