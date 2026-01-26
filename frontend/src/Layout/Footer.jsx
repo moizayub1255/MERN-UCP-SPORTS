@@ -168,7 +168,7 @@ const Footer = () => {
                 >
                   
         {/* <p className="thanks"> */}
-        Special Thanks to <strong>Softwire Technologies (Moaz)</strong> for sponsorship
+        {/* Special Thanks to <strong>Softwire Technologies (Moaz)</strong> for sponsorship */}
         {/* </p> */}
                 </a>
         
