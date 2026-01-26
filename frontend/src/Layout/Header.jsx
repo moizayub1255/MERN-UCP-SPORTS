@@ -9,7 +9,7 @@ const Header = () => {
         <div className="container-fluid">
           <Link className="navbar-brand d-flex align-items-center" to="/">
             <img
-              src="./logo (2).png"
+              src="./logo-2026.jpeg"
               alt="Logo"
               width={100}
               height={80}
