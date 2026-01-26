@@ -3,6 +3,7 @@ import Headandfoot from "../Layout/Headandfoot";
 import "../Styles/Home.css";
 import AboutMe from "./Aboutme";
 import { usePoints } from "../PointsContext";
+import FAQs from "../FAQs";
 
 const Home = () => {
   const { pointsData, setPointsData } = usePoints();
@@ -91,7 +92,7 @@ const Home = () => {
           <img key={team._id} src={team.img} alt={team.teamName} />
         ))}
       </div>
-      {/* <AboutMe></AboutMe> */}
+      {/* <FAQs/> */}
     </Headandfoot>
   );
 };
