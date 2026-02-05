@@ -8,7 +8,6 @@ const pointsTableSchema = new mongoose.Schema({
     Warriors: { type: Number, default: 0 },
     Hawks: { type: Number, default: 0 },
     Gladiators: { type: Number, default: 0 },
-    Falcons: { type: Number, default: 0 },
   },
 });
 

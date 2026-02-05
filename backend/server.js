@@ -40,10 +40,7 @@ const seedTeams = async () => {
     { teamName: "Warriors", img: "warriors.png", points: 0 },
     { teamName: "Hawks", img: "hawks.png", points: 0 },
     { teamName: "Gladiators", img: "gladiators.png", points: 0 },
-    { teamName: "Falcons", img: "falcons.png", points: 0 },
   ];
-
-
 
   try {
     // Insert default teams only if they don't already exist

@@ -4,7 +4,7 @@ import Points from "../models/Points.js";
 // Helper: Recompute overall points across all games/categories and update Points collection
 const recomputeOverallPoints = async () => {
   try {
-    const teamKeys = ["Jaguars", "Warriors", "Hawks", "Gladiators", "Falcons"];
+    const teamKeys = ["Jaguars", "Warriors", "Hawks", "Gladiators"];
     const totals = {};
     teamKeys.forEach((k) => (totals[k] = 0));
 
@@ -46,7 +46,7 @@ export const updatePoints = async (req, res) => {
     let updatedTable = await PointsTable.findOneAndUpdate(
       { game: gameId, category: cat },
       { $set: updateObj },
-      { new: true, upsert: true }
+      { new: true, upsert: true },
     );
 
     // If not found (possible case mismatch), try updating by gameId only
@@ -54,12 +54,14 @@ export const updatePoints = async (req, res) => {
       updatedTable = await PointsTable.findOneAndUpdate(
         { game: gameId },
         { $set: updateObj },
-        { new: true, upsert: true }
+        { new: true, upsert: true },
       );
     }
 
     if (!updatedTable) {
-      return res.status(404).json({ message: "Game not found in points table" });
+      return res
+        .status(404)
+        .json({ message: "Game not found in points table" });
     }
 
     // After updating the per-game table, recompute overall points so they stay in sync
@@ -85,4 +87,3 @@ export const getPointsTable = async (req, res) => {
     res.status(500).json({ message: "Error fetching points table", error });
   }
 };
-

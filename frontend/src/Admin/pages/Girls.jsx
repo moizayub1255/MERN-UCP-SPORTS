@@ -15,7 +15,7 @@ const Girls = () => {
           `${import.meta.env.VITE_API_URL}/api/games/games`,
           {
             params: { category: "girls" },
-          }
+          },
         );
         console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
@@ -30,7 +30,7 @@ const Girls = () => {
           `${import.meta.env.VITE_API_URL}/api/points-table`,
           {
             params: { category: "girls" },
-          }
+          },
         );
         const pts = {};
         pointsResponse.data.forEach((item) => {
@@ -47,37 +47,36 @@ const Girls = () => {
   }, []);
 
   // Add a new game
-const handleAddGame = async () => {
-  if (!newGame) return alert("Please enter a game name");
+  const handleAddGame = async () => {
+    if (!newGame) return alert("Please enter a game name");
 
-  // 🆕 First letter capitalize
-  const formattedGameName = newGame.charAt(0).toUpperCase() + newGame.slice(1).toLowerCase();
+    // 🆕 First letter capitalize
+    const formattedGameName =
+      newGame.charAt(0).toUpperCase() + newGame.slice(1).toLowerCase();
 
-  try {
-    const token = localStorage.getItem("token"); // Token le lo
+    try {
+      const token = localStorage.getItem("token"); // Token le lo
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/games/add-game`,
-      {
-        name: formattedGameName, // Updated name
-        category: "girls",
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Token bhejo
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/games/add-game`,
+        {
+          name: formattedGameName, // Updated name
+          category: "girls",
         },
-      }
-    );
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Token bhejo
+          },
+        },
+      );
 
-    setGames([...games, response.data.game]);
-    setNewGame("");
-  } catch (error) {
-    console.error("Error adding game:", error);
-  }
-};
-
-  
+      setGames([...games, response.data.game]);
+      setNewGame("");
+    } catch (error) {
+      console.error("Error adding game:", error);
+    }
+  };
 
   // Update points for a game
   const handleUpdatePoints = async (gameId) => {
@@ -95,7 +94,7 @@ const handleAddGame = async () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       alert("Points updated successfully!");
       window.location.reload(); // Refresh page to update Leaderboard
@@ -103,7 +102,6 @@ const handleAddGame = async () => {
       console.error("Error updating points:", error);
     }
   };
-  
 
   return (
     <AdminHeadFoot>
@@ -194,22 +192,6 @@ const handleAddGame = async () => {
                     }
                   />
                 </div>
-                <div>
-                  <label>Falcons: </label>
-                  <input
-                    type="number"
-                    value={gamePoints[game._id]?.Falcons || 0}
-                    onChange={(e) =>
-                      setGamePoints({
-                        ...gamePoints,
-                        [game._id]: {
-                          ...gamePoints[game._id],
-                          Falcons: parseInt(e.target.value) || 0,
-                        },
-                      })
-                    }
-                  />
-                </div>
                 <button onClick={() => handleUpdatePoints(game._id)}>
                   Save Points
                 </button>
@@ -220,7 +202,7 @@ const handleAddGame = async () => {
           )}
         </div>
       </div>
-      </AdminHeadFoot>
+    </AdminHeadFoot>
   );
 };
 

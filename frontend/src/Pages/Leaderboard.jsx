@@ -10,10 +10,10 @@ const Leaderboard = () => {
     const fetchLeaderboards = async () => {
       try {
         const boysResponse = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/points-table?category=boys`
+          `${import.meta.env.VITE_API_URL}/api/points-table?category=boys`,
         );
         const girlsResponse = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/points-table?category=girls`
+          `${import.meta.env.VITE_API_URL}/api/points-table?category=girls`,
         );
 
         console.log("Boys Leaderboard Data:", boysResponse.data); // Debugging
@@ -100,9 +100,6 @@ const Leaderboard = () => {
                       style={imgStyle}
                     />
                   </th>
-                  <th style={thStyle}>
-                    <img src="./falcons.png" alt="Falcons" style={imgStyle} />
-                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -115,7 +112,6 @@ const Leaderboard = () => {
                     <td style={tdStyle}>{game.points.Warriors}</td>
                     <td style={tdStyle}>{game.points.Hawks}</td>
                     <td style={tdStyle}>{game.points.Gladiators}</td>
-                    <td style={tdStyle}>{game.points.Falcons}</td>
                   </tr>
                 ))}
               </tbody>
@@ -151,13 +147,6 @@ const Leaderboard = () => {
                       style={imgStyle}
                     />
                   </th>
-                  <th style={thStyle}>
-                    <img
-                      src="./falcons.png"
-                      alt="Falcons"
-                      style={imgStyle}
-                    />
-                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -170,7 +159,6 @@ const Leaderboard = () => {
                     <td style={tdStyle}>{game.points.Warriors}</td>
                     <td style={tdStyle}>{game.points.Hawks}</td>
                     <td style={tdStyle}>{game.points.Gladiators}</td>
-                    <td style={tdStyle}>{game.points.Falcons}</td>
                   </tr>
                 ))}
               </tbody>

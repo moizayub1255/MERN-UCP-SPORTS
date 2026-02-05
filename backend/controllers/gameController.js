@@ -9,7 +9,9 @@ export const addGame = async (req, res) => {
     // ✅ Sirf same category mai duplicate check hoga
     const existingGame = await Game.findOne({ name, category });
     if (existingGame) {
-      return res.status(400).json({ message: `Game already exists in ${category} category!` });
+      return res
+        .status(400)
+        .json({ message: `Game already exists in ${category} category!` });
     }
 
     const game = new Game({ name, category });
@@ -19,7 +21,7 @@ export const addGame = async (req, res) => {
     const newPointsTable = new PointsTable({
       game: game._id,
       category,
-      points: { Jaguars: 0, Warriors: 0, Hawks: 0, Gladiators: 0, Falcons: 0 },
+      points: { Jaguars: 0, Warriors: 0, Hawks: 0, Gladiators: 0 },
     });
     await newPointsTable.save();
 
@@ -28,7 +30,6 @@ export const addGame = async (req, res) => {
     res.status(500).json({ message: "Error adding game", error });
   }
 };
-
 
 // ➤ Game delete karne ka function
 export const deleteGame = async (req, res) => {
@@ -44,11 +45,11 @@ export const deleteGame = async (req, res) => {
 };
 
 export const getGames = async (req, res) => {
-    try {
-      const { category } = req.query;
-      const games = await Game.find({ category });
-      res.json(games);
-    } catch (error) {
-      res.status(500).json({ message: "Error fetching games", error });
-    }
-  };
+  try {
+    const { category } = req.query;
+    const games = await Game.find({ category });
+    res.json(games);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching games", error });
+  }
+};

@@ -11,7 +11,10 @@ const Home = () => {
   // Fetch points data from backend
   useEffect(() => {
     const fetchPointsData = async () => {
-      try {const response = await fetch(`${import.meta.env.VITE_API_URL}/api/points`);
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/points`,
+        );
         const data = await response.json();
         setPointsData(data); // Set the fetched data in context
       } catch (error) {
@@ -60,6 +63,7 @@ const Home = () => {
           </thead>
           <tbody>
             {(pointsData || [])
+              .filter((t) => t.teamName !== "Falcons")
               .sort((a, b) => b.points - a.points) // Sort teams by points in descending order
               .map((team, index) => (
                 <tr key={team._id} className="text-center">
@@ -88,9 +92,11 @@ const Home = () => {
 
       <h1 className="d-flex justify-content-center">Our Teams</h1>
       <div className="row row-cols-1 row-cols-md-3 g-4 p-4 d-flex justify-content-center">
-        {pointsData.map((team) => (
-          <img key={team._id} src={team.img} alt={team.teamName} />
-        ))}
+        {(pointsData || [])
+          .filter((t) => t.teamName !== "Falcons")
+          .map((team) => (
+            <img key={team._id} src={team.img} alt={team.teamName} />
+          ))}
       </div>
       {/* <FAQs/> */}
     </Headandfoot>

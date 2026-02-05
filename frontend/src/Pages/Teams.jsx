@@ -12,22 +12,6 @@ const teams = [
     video: "realwarriors.mp4",
   },
   {
-    name: "Tigers",
-    logo: "/falcons.png",
-    description:
-      "The Tigers are known for their speed and agility. They dominate the field with unmatched teamwork and energy. Whether it’s a nail-biting finish or a clear victory, this team brings their A-game every time.",
-    classes: [
-      "BS-AF",
-      "BS-BA",
-      "BS-English",
-      "BS-Chemistry",
-      "BS-Physics",
-      "All-ADP",
-    ],
-    in: ["Prof.Touheed Alam", "Prof. Tariq", "Prof. Kamran"],
-    video: "Falcons.mp4",
-  },
-  {
     name: "Gladiators",
     logo: "/gladiators.png",
     description:
@@ -43,7 +27,6 @@ const teams = [
       "The Hawks play with precision and strength. They are a balanced team with exceptional skills in all areas of the game. Their focus and determination set them apart.",
     classes: ["BSCS-9"],
     in: ["Prof. Fawad Hamayun", "Prof. Naseem Ahmed"],
-    // video: "falconstheme.mp4",
   },
   {
     name: "Jaguars",
